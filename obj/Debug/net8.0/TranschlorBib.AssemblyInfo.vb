@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("TranschlorBib"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f59f3eb8424837bc9cce095375da734aa64b614"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36509012eb74b96d4fec8d5f1e436bfff40e861b"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("TranschlorBib"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("TranschlorBib"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")> 
