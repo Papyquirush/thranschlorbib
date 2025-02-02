@@ -8,19 +8,24 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Florian\\.nuget\\packages\\": {}
+    "C:\\Users\\Mateo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Florian\\Documents\\Cours\\3A\\SAE\\TranschlorBib\\TranschlorBib.vbproj",
+      "projectUniqueName": "C:\\Users\\Mateo\\Documents\\GitHub\\thranschlorbib\\TranschlorBib.vbproj",
       "projectName": "TranschlorBib",
-      "projectPath": "C:\\Users\\Florian\\Documents\\Cours\\3A\\SAE\\TranschlorBib\\TranschlorBib.vbproj",
-      "packagesPath": "C:\\Users\\Florian\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Florian\\Documents\\Cours\\3A\\SAE\\TranschlorBib\\obj\\",
+      "projectPath": "C:\\Users\\Mateo\\Documents\\GitHub\\thranschlorbib\\TranschlorBib.vbproj",
+      "packagesPath": "C:\\Users\\Mateo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mateo\\Documents\\GitHub\\thranschlorbib\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Florian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mateo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -45,7 +50,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -66,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
