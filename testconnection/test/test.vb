@@ -13,7 +13,7 @@ Module Program
             Dim context As HttpListenerContext = listener.GetContext()
             Dim request As HttpListenerRequest = context.Request
             Dim response As HttpListenerResponse = context.Response
-
+            Console.WriteLine(request.Url)
             If request.HttpMethod = "POST" AndAlso request.ContentType.StartsWith("multipart/form-data") Then
                 ' Lire le fichier envoyé
                 Dim boundary As String = request.ContentType.Split("="c)(1)
@@ -38,11 +38,13 @@ Module Program
                 Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)
                 response.ContentLength64 = buffer.Length
                 response.OutputStream.Write(buffer, 0, buffer.Length)
-            Else
+            End If
+            If request.Url.Equals("http://localhost:5000/meteo") Then
+                Console.WriteLine(request.Url)
                 ' Répondre aux autres requêtes
-                Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes("ça marche")
-                response.ContentLength64 = buffer.Length
-                response.OutputStream.Write(buffer, 0, buffer.Length)
+                Dim buffer_1 As Byte() = System.Text.Encoding.UTF8.GetBytes("ça marche")
+                response.ContentLength64 = buffer_1.Length
+                response.OutputStream.Write(buffer_1, 0, buffer_1.Length)
             End If
 
             response.OutputStream.Close()
