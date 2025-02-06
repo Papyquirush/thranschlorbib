@@ -957,26 +957,27 @@ Module Meteo
 
     End Sub
 
-    Public Sub MeteoTreatmentTroubleshootingPart1()
+    Public Function MeteoTreatmentTroubleshootingPart1()
         Dim outfile As String
         Dim PostFile As String
         Dim txtfile As String
         Dim Canc As Boolean = False
 
         ReadMeteoFile(outfile, PostFile, txtfile, Canc)
-        Troubleshoot(0)
+        Dim Retour As String = Troubleshoot(0)
+        Return Retour
 
-    End Sub
-    Public Sub MeteoTreatmentTroubleshootingPart1()
+    End Function
+    Public Function MeteoTreatmentTroubleshootingPart2()
         Dim outfile As String
         Dim PostFile As String
         Dim txtfile As String
         Dim Canc As Boolean = False
 
         ReadMeteoFile(outfile, PostFile, txtfile, Canc)
-        Troubleshoot(1)
-
-    End Sub
+        Dim Retour As String = Troubleshoot(1)
+        Return Retour
+    End Function
 
 
     Public Sub MeteoTreatment()

@@ -14,3 +14,16 @@ C:\Users\Florian\Documents\Cours\3A\SAE\TranschlorBib\obj\Debug\net8.0\refint\Tr
 C:\Users\Florian\Documents\Cours\3A\SAE\TranschlorBib\obj\Debug\net8.0\TranschlorBib.pdb
 C:\Users\Florian\Documents\Cours\3A\SAE\TranschlorBib\obj\Debug\net8.0\ref\TranschlorBib.dll
 C:\Users\Florian\Documents\Cours\3A\SAE\TranschlorBib\bin\Debug\net8.0\TranschlorBib.tlb
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\bin\Debug\net8.0\TranschlorBib.dll.config
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\bin\Debug\net8.0\TranschlorBib.deps.json
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\bin\Debug\net8.0\TranschlorBib.dll
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\bin\Debug\net8.0\TranschlorBib.pdb
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.AssemblyInfoInputs.cache
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.AssemblyInfo.vb
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.vbproj.CoreCompileInputs.cache
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.sourcelink.json
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.dll
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\refint\TranschlorBib.dll
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\TranschlorBib.pdb
+C:\Users\Mateo\Documents\GitHub\thranschlorbib\obj\Debug\net8.0\ref\TranschlorBib.dll

@@ -39,12 +39,25 @@ Module Program
                 response.ContentLength64 = buffer.Length
                 response.OutputStream.Write(buffer, 0, buffer.Length)
             End If
-            If request.Url.Equals("http://localhost:5000/meteo") Then
+            If request.Url.Equals("http://localhost:5000/troubleshoot") AndAlso request.HttpMethod = "POST" AndAlso request.ContentType.StartsWith("multipart/form-data") Then
                 Console.WriteLine(request.Url)
+
+                ' Lire le fichier envoyé
+                Dim boundary As String = request.ContentType.Split("="c)(1)
+                Dim reader As New StreamReader(request.InputStream)
+                Dim requestBody As String = reader.ReadToEnd()
+
+                ' Trouver le début du fichier
+                Dim fileStart As Integer = requestBody.IndexOf("Content-Type: ") + requestBody.Substring(requestBody.IndexOf("Content-Type: ")).IndexOf(vbCrLf) + 4
+                Dim fileData As Byte() = System.Text.Encoding.UTF8.GetBytes(requestBody.Substring(fileStart))
+
                 ' Répondre aux autres requêtes
                 Dim buffer_1 As Byte() = System.Text.Encoding.UTF8.GetBytes("ça marche")
+                Dim buffer_2 As Byte() = System.Text.Encoding.UTF8.GetBytes("ça marche aussi")
                 response.ContentLength64 = buffer_1.Length
                 response.OutputStream.Write(buffer_1, 0, buffer_1.Length)
+                response.ContentLength64 = buffer_2.Length
+                response.OutputStream.Write(buffer_2, 0, buffer_2.Length)
             End If
 
             response.OutputStream.Close()
