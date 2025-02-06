@@ -152,7 +152,7 @@ Module Meteo
     End Sub
 
 
-    Public Sub ReadMeteoFile(ByRef OutFile As String, ByRef PostFile As String, ByRef txtFile As String, ByRef Canc As Boolean)
+    Public Sub ReadMeteoFile(OutFile As String, ByRef PostFile As String, ByRef txtFile As String, ByRef Canc As Boolean)
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'lecture fichier METEO_*.txt
@@ -425,6 +425,124 @@ Module Meteo
 
     End Function
 
+    Public Function precalcul(outfile As String)
+        Dim PostFile As String
+        Dim txtfile As String
+        Dim Canc As Boolean = False
+
+        ReadMeteoFile(outfile, PostFile, txtfile, Canc)
+
+
+        Dim Start As Integer
+        Dim Fin As Integer
+        Dim startmax As Integer
+        Dim finmax As Integer
+        Dim IntLong As Integer
+        Dim Panne As Boolean = False
+
+        Start = 0
+        Fin = 0
+        startmax = 0
+        finmax = 0
+        Panne = False
+        Dim i As Integer = 0
+        For i = 0 To iAnzahl - 1 'i correspond à une heure
+            If arrDaten(i).moy6 = 32767 Or arrDaten(i).moy13 = 32767 Or arrDaten(i).moy17 = 32767 Or arrDaten(i).moy22 = 32767 Then
+                If Panne = False Then
+                    Fin = i - 1
+                    If Fin - Start > finmax - startmax Then
+                        finmax = Fin
+                        startmax = Start
+                    End If
+                    Panne = True
+                End If
+            Else
+                If Panne = True Then
+                    Start = i
+                    Panne = False
+                End If
+            End If
+        Next
+
+        If Panne = False Then 'contrôle du dernier intervalle
+            Fin = i - 1
+            If Fin - Start > finmax - startmax Then
+                finmax = Fin
+                startmax = Start
+            End If
+        End If
+
+        IntLong = finmax - startmax
+        'IntLong = Fix(IntLong / 8760)
+        'iAnzahl = CInt(8760 * IntLong)
+        iAnzahl = CInt(IntLong)
+        NbrAns = iAnzahl / 8760
+
+        ReDim Preserve arrMatrice(iAnzahl - 1)
+        For i = 0 To iAnzahl - 1
+            arrDaten(i) = arrDaten(i + startmax)
+        Next
+        ReDim Preserve arrDaten(iAnzahl - 1)
+
+        Dim form As StrctForm
+
+
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        'Calcul du nbre d'interventions et de la quantité de sel épandu
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        Dim Hiv As Boolean = True
+        Dim Cpt As Short = 0
+        Dim NDH As Single = 0
+
+
+
+        'Calcul du nombre de jours hivernaux
+        For j As Integer = 0 To iAnzahl - 1
+            If arrDaten(j).moy6 / 10 > 0 Then Hiv = False
+            If Cpt = 24 Then
+                If Hiv = True Then NDH = NDH + 1
+                Hiv = True
+                Cpt = 0
+            End If
+            Cpt = Cpt + 1
+        Next
+
+        'frmTempSeuil = New frmMeteo
+        'frmTempSeuil.Label12.Text = NbrAns
+
+        form.nb_annees = NbrAns
+
+        If Math.Round(NbrAns, 1) > Math.Round(NbrAns, 0) Then
+            NbrAns = Math.Round(NbrAns, 0) + 1
+        Else
+            NbrAns = Math.Round(NbrAns, 0)
+        End If
+        NDH = NDH / NbrAns  'nombre de jours hivernaux par ans
+
+        Dim qNaCl1 As Single = 20.83519974 * NDH + 211.3117439   'quantité par an en g/m2 de sel déversé sur la chaussée
+        Dim qNaCl2 As Single = 20.83519974 * NDH - 72.9892168  'quantité par an en g/m2 de sel déversé sur la chaussée
+
+        'frmTempSeuil.Label3.Text = CInt(qNaCl1)
+        form.concentration_annuelle_chlorure_sodium_epandage_mecanique = CInt(qNaCl1)
+        'frmTempSeuil.Label74.Text = CInt(qNaCl2)
+        form.concentration_annuelle_chlorure_sodium_epandage_automatique = CInt(qNaCl2)
+        'frmTempSeuil.NumericUpDown1.Text = 10
+
+        form.quantite_moyenne_chlorure_epandage_mecanique = 10
+
+        Dim Fichier As String = "C:\Users\Public\Documents\TempSeuil.txt"
+        Dim sw As New System.IO.StreamWriter(Fichier)
+        sw.WriteLine("nb_annees=" & form.nb_annees)
+        sw.WriteLine("concentration_annuelle_chlorure_sodium_epandage_mecanique=" & form.concentration_annuelle_chlorure_sodium_epandage_mecanique)
+        sw.WriteLine("concentration_annuelle_chlorure_sodium_epandage_automatique=" & form.concentration_annuelle_chlorure_sodium_epandage_automatique)
+        sw.WriteLine("quantite_moyenne_chlorure_epandage_mecanique=" & form.quantite_moyenne_chlorure_epandage_mecanique)
+
+        sw.Close()
+        Return Fichier
+
+    End Function
+
     Public Sub InputDeicingSalt()
         Dim form As StrctForm
 
@@ -610,7 +728,7 @@ Module Meteo
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''
         Dim NbPluie As Short = 0 'Ajout Bitume TSANCHEZ
-        Dim NbPluieMax As Short = InputBox("Bitume delay for Humidity (Default: 50 [Salam Bah])", "Bitume Property", 50)
+        Dim NbPluieMax As Short = InputBox("Bitume delay For Humidity (Default: 50 [Salam Bah])", "Bitume Property", 50)
 
         For i As Integer = 0 To (iAnzahl - 1)
 
@@ -957,8 +1075,8 @@ Module Meteo
 
     End Sub
 
-    Public Function MeteoTreatmentTroubleshootingPart1()
-        Dim outfile As String
+    Public Function MeteoTreatmentTroubleshootingPart1(outfile As String)
+        'Dim outfile As String
         Dim PostFile As String
         Dim txtfile As String
         Dim Canc As Boolean = False
@@ -968,8 +1086,8 @@ Module Meteo
         Return Retour
 
     End Function
-    Public Function MeteoTreatmentTroubleshootingPart2()
-        Dim outfile As String
+    Public Function MeteoTreatmentTroubleshootingPart2(outfile As String)
+        'Dim outfile As String
         Dim PostFile As String
         Dim txtfile As String
         Dim Canc As Boolean = False
@@ -977,6 +1095,16 @@ Module Meteo
         ReadMeteoFile(outfile, PostFile, txtfile, Canc)
         Dim Retour As String = Troubleshoot(1)
         Return Retour
+    End Function
+
+    Public Function MeteoTreatmentInputDeicingSalt(outfile As String)
+        'Dim outfile As String
+        Dim PostFile As String
+        Dim txtfile As String
+        Dim Canc As Boolean = False
+
+        ReadMeteoFile(outfile, PostFile, txtfile, Canc)
+        InputDeicingSalt()
     End Function
 
 
@@ -992,7 +1120,7 @@ Module Meteo
 
         'Troubleshoot()
 
-        InputDeicingSalt()
+        'InputDeicingSalt()
 
         CalculTHS()
 
